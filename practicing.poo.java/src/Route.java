@@ -1,5 +1,3 @@
-// package practicing-POO.JAVA;
-
 import java.util.ArrayList;
 
 public class Route {
