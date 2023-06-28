@@ -44,4 +44,4 @@ console.log(calculator.add(10));
 // calculator.subtract(-10)
 // calculator.clear()
 
-Output: 0
+// Output: 0
