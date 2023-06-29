@@ -1,4 +1,4 @@
-var isSquare = function(n){
+function isSquare(n){
   if (Number.isInteger(Math.sqrt(n))) return "Is square";
   else console.log("Is not square");
 }
