@@ -24,3 +24,34 @@ function removePlayer(scoreBoard, player) {
 
 console.log(removePlayer({ 'Dave Thomas': 0 }, 'Dave Thomas'));
 console.log(removePlayer({ 'Dave Thomas': 0 }, 'Rose Fan'));
+
+function updateScore(scoreBoard, player, points) {
+  scoreBoard[player] += points;
+  return scoreBoard;
+}
+
+console.log(updateScore({ 'Freyja Cir': 12771008 }, 'Freyja Cir', 73));
+
+function applyMondayBonus(scoreBoard) {
+  for (const key in scoreBoard) {
+    scoreBoard[key] += 100;    
+  }
+  return scoreBoard;
+}
+
+console.log(applyMondayBonus({
+  'Ami Pastor': 345,
+  'Min-seo Shin': 19,
+  'Jesse Johnson': 122,
+}));  
+
+function normalizeScore(params) {
+  return params.normalizeFunction(params.score);
+}
+
+function normalize(score) {
+  return 2 * score + 10;
+}
+const params = { score: 400, normalizeFunction: normalize };
+
+console.log(normalizeScore(params));
