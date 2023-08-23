@@ -5,16 +5,16 @@ function createTaskPlanner() {
     addTask(task) {
       task.completed = false;
       tasksList.push(task);
-      console.log(tasksList);
+      // console.log(tasksList);
     },
 
     removeTask(value) {
       // value = name or id
       tasksList.forEach( element => {
-        if (value === element.name || element.id) {
-          
-          console.log(element.name);
-          delete element;
+        if (element.id === value ) {
+          delete element; 
+        } else if (element.name === value) {
+          delete element;  
         }
       })
     },
@@ -25,37 +25,48 @@ function createTaskPlanner() {
 
     getPendingTasks() {
 
-      return tasksList.forEach( element => {
+      return tasksList.filter( element => {
         if (element.completed === false) {
           return element;
         }
       })
     },
+
+    getCompletedTasks() {
+      return tasksList.filter( element => {
+        if (element.completed === true) {
+          return element;
+        }
+      })
+
+    },
+
+    markTaskAsCompleted(value) {
+      // completed => id name
+      tasksList.forEach( element =>{ 
+        console.log(element.id);
+        if (element.id === value ) {
+          element.completed = true;  
+        } else if (element.name === value) {
+          element.completed = true;  
+        }
+
+      })
+    },
+
+    getSortedTasksByPriority () {
+      return 
+    },
+  
+    filterTasksByTag(tag) {
+  
+    },
+  
+    updateTask(taskId, updates) {
+  
+    }
   }
     
-
-
-  function getCompletedTasks() {
-
-
-  }
-
-  function markTaskAsCompleted(value) {
-
-  }
-
-  function getSortedTasksByPriority () {
-
-  }
-
-  function filterTasksByTag(tag) {
-
-  }
-
-  function updateTask(taskId, updates) {
-
-  }
-
 }
 
 const planner = createTaskPlanner(); 
@@ -69,10 +80,25 @@ planner.addTask({
   tags: ["shopping", "home"]
 });
 
+planner.addTask({
+  id: 2,
+  name: "buy apple",
+  priority: 1,
+  tags: ["shopping", "home"]
+});
+
+planner.addTask({
+  id: 3,
+  name: "buy orange",
+  priority: 1,
+  tags: ["shopping", "home"]
+});
 // planner.removeTask("buy milk")
 // planner.removeTask(1)
-planner.getTasks()
-planner.getPendingTasks()
+// planner.getTasks()
+planner.markTaskAsCompleted(1)
+console.log(planner.getCompletedTasks())
+console.log(planner.getPendingTasks())
 // planner.addTask({
 //     id: 2,
 //     name: "calling to Juan",
