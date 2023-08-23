@@ -1,72 +1,57 @@
 function createTaskPlanner() {
-  const tasksList = [];
+  let tasks = [];
   
   return {
-    addTask(task) {
-      task.completed = false;
-      tasksList.push(task);
-      // console.log(tasksList);
+    addTask(task) {  
+      task.completed = false;  
+      tasks.push(task);
     },
 
-    removeTask(value) {
-      // value = name or id
-      tasksList.forEach( element => {
-        if (element.id === value ) {
-          delete element; 
-        } else if (element.name === value) {
-          delete element;  
-        }
-      })
+    removeTask(value) {    
+      if (typeof value === "number") {        
+        tasks = tasks.filter((task) => task.id !== value);
+      } else {    
+        tasks = tasks.filter((task) => task.name !== value);
+      }
     },
 
     getTasks() {
-      return tasksList;
+      return tasks;
     },
-
+  
     getPendingTasks() {
-
-      return tasksList.filter( element => {
-        if (element.completed === false) {
-          return element;
-        }
-      })
+      return tasks.filter((task) => !task.completed);
     },
 
     getCompletedTasks() {
-      return tasksList.filter( element => {
-        if (element.completed === true) {
-          return element;
-        }
-      })
-
+      return tasks.filter((task) => task.completed);
     },
 
-    markTaskAsCompleted(value) {
-      // completed => id name
-      tasksList.forEach( element =>{ 
-        console.log(element.id);
-        if (element.id === value ) {
-          element.completed = true;  
-        } else if (element.name === value) {
-          element.completed = true;  
-        }
-
-      })
+    markTaskAsCompleted(value) {    
+      let index;
+      if (typeof value === "number") {
+        index = tasks.findIndex((task) => task.id === value);
+      } else {
+        index = tasks.findIndex((task) => task.name === value);
+      }
+  
+      tasks[index].completed = true;
     },
 
-    getSortedTasksByPriority () {
-      return 
+    getSortedTasksByPriority() {    
+      const sortedTasks = [...tasks].sort((a, b) => a.priority - b.priority);    
+      return sortedTasks;
     },
-  
-    filterTasksByTag(tag) {
-  
+
+    filterTasksByTag(tag) {  
+      return tasks.filter((task) => task.tags.includes(tag));
     },
-  
-    updateTask(taskId, updates) {
-  
-    }
-  }
-    
+
+    updateTask(taskId, updates) {       
+      const index = tasks.findIndex((task) => task.id === taskId);  
+      tasks[index] = { ...tasks[index], ...updates };
+    },
+  };
 }
 
 const planner = createTaskPlanner(); 
@@ -97,48 +82,6 @@ planner.addTask({
 // planner.removeTask(1)
 // planner.getTasks()
 planner.markTaskAsCompleted(1)
-console.log(planner.getCompletedTasks())
-console.log(planner.getPendingTasks())
-// planner.addTask({
-//     id: 2,
-//     name: "calling to Juan",
-//     priority: 3,
-//     tags: ["personal"]
-// });
-
-// planner.markTaskAsCompleted("calling to Juan")
-
-// // Output
-// planner.getCompletedTasks()
-// [{
-//     id: 2,
-//     name: "calling to Juan",
-//     completed: true,
-//     priority: 3,
-//     tags: ["personal"]
-// }]
-
-// // Input
-// planner.addTask({
-//     id: 1,
-//     name: "buy milk",
-//     priority: 1,
-//     tags: ["shopping", "home"]
-// });
-
-// planner.addTask({
-//     id: 2,
-//     name: "calling to Juan",
-//     priority: 3,
-//     tags: ["personal"]
-// });
-
-// // Output
-// planner.filterTasksByTag("shopping")
-// [{
-//     id: 1,
-//     name: "buy milk",
-//     completed: false,
-//     priority: 3,
-//     tags: ["shopping", "home"]
-// }]
+// console.log(planner.getCompletedTasks())
+// console.log(planner.getPendingTasks())
+console.log(planner.getSortedTasksByPriority());
