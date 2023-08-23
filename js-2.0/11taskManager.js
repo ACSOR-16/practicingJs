@@ -3,6 +3,7 @@ function createTaskPlanner() {
   
   return {
     addTask(task) {
+      task.completed = false;
       tasksList.push(task);
       console.log(tasksList);
     },
@@ -19,19 +20,20 @@ function createTaskPlanner() {
     },
 
     getTasks() {
+      return tasksList;
+    },
 
-    }
+    getPendingTasks() {
+
+      return tasksList.forEach( element => {
+        if (element.completed === false) {
+          return element;
+        }
+      })
+    },
   }
-  
-  
+    
 
-  function getTasks() {
-
-  }
-  
-  function getPendingTasks() {
-
-  }
 
   function getCompletedTasks() {
 
@@ -67,8 +69,10 @@ planner.addTask({
   tags: ["shopping", "home"]
 });
 
-planner.removeTask("buy milk")
-planner.removeTask(1)
+// planner.removeTask("buy milk")
+// planner.removeTask(1)
+planner.getTasks()
+planner.getPendingTasks()
 // planner.addTask({
 //     id: 2,
 //     name: "calling to Juan",
