@@ -4,44 +4,40 @@ function searchValue(array, value) {
     throw new Error("value not found")
   }
   
-  const local = []
+  const row = []
   let column = null
 
   array.forEach(element => {
     // console.log(element)
     const index = element.findIndex(num => num === value);
-    local.push(index);
+    row.push(index);
     if(index >= 0 ){
       column = index
     } 
     
   });
-  console.log(local, column);
+  console.log(row, column);
 
   return {
-    row: local.findIndex(num => num >= 0),
+    row: row.findIndex(num => num >= 0),
     column: column
   }
   
 }
 
-function searchValueTwo(array, value) {
-  const singleArray = array.flatMap((x) => x);
-  const index = singleArray.findIndex((val) => val === value);
-  if (index === -1) {
-    throw new Error("Valor no encontrado");
-  }
+// function searchValueTwo(array, value) {
+//   const singleArray = array.flatMap((x) => x);
+//   const index = singleArray.findIndex((val) => val === value);
+//   if (index === -1) {
+//     throw new Error("Valor no found");
+//   }
 
-  const row = Math.floor(index / array[0].length);
-  const column = index % array[0].length;
+//   const row = Math.floor(index / array[0].length);
+//   const column = index % array[0].length;
 
-  return { row, column };
-}
+//   return { row, column };
+// }
 
-const row = Math.floor(index / array[0].length);
-const column = index % array[0].length;
-
-return { row, column };
 // Input:
 const array = [
   [1, 2, 3],
