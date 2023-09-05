@@ -1,42 +1,38 @@
-export function simulator(astronaut, spaceShip, direction) {
-  astronaut.navigate(spaceShip, direction);
-  return spaceShip._movements;
+export class Motor {
+  constructor(propulsionTo, historyInstance) {
+    let status = "off"
+    let history = historyInstance;
+
+    this.getStatus = () => status;
+    let setStatus = (newStatus) => {
+      status = newStatus;
+      history.setState({
+        status: newStatus,
+        propulsionTo,
+      });
+    };
+
+    this.turnOn = () => setStatus("on");
+    this.turnOff = () => setStatus("off");
+    
+    this.getHistory = () => history.getFullState();
+  }
 }
 
-export class Astronaut {
-  constructor({ name }) {
-    this.name = name;
-    this._spaceShipKey = undefined;
-  }
+export class History {
+  constructor() {
+    let history = [];
 
-  setAccessKey(accessKey) {
-    this._spaceShipKey = accessKey;
-  }
+    this.getState = () => history[history.length - 1];
+    this.getFullState = () => history;
 
-  navigate(spaceShip, direction) {
-    spaceShip.navigator(direction, { accessKey: this._spaceShipKey });
-  }
-}
+    this.setState = (newState) => {
+      const stateStr = JSON.stringify(this.getState());
+      const newStateStr = JSON.stringify(newState);
 
-export class SpaceShip {
-  constructor({ key }) {
-    this._key = key;
-    this._movements = [];
-  }
-  
-  getAccessKey(astronaut) {
-    const isAstronaut = astronaut instanceof Astronaut;
-
-    if (isAstronaut) {
-      astronaut.setAccessKey(this._key);
-    }
-  }
-
-  navigator(direction, { accessKey }) {
-    if (this._key == accessKey) {
-      this._movements.push(direction)
-    } else {
-      this._movements.push("Incorrect Access Key");
-    }
+      if (stateStr != newStateStr) {
+        history.push(newState);
+      }
+    };
   }
 }
