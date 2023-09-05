@@ -1,9 +1,9 @@
-export function simulator(astronaut, spaceShip, direction) {
+function simulator(astronaut, spaceShip, direction) {
   astronaut.navigate(spaceShip, direction);
   return spaceShip._movements;
 }
 
-export class Astronaut {
+class Astronaut {
   constructor({ name }) {
     this.name = name;
 
@@ -18,7 +18,7 @@ export class Astronaut {
   }
 }
 
-export class SpaceShip {
+class SpaceShip {
   constructor({ key }) {
     this._movements = [];
 

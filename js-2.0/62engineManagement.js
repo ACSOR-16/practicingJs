@@ -1,4 +1,4 @@
-export class Motor {
+class Motor {
   constructor(propulsionTo, historyInstance) {
     let status = "off"
     let history = historyInstance;
@@ -19,7 +19,7 @@ export class Motor {
   }
 }
 
-export class History {
+class History {
   constructor() {
     let history = [];
 

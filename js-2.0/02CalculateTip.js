@@ -3,4 +3,8 @@ function calculateTip (billAmount, tipPercentage) {
   return calculate;
 }
 
+// function calculateTip(billAmount, tipPercentage) {
+//   return billAmount * tipPercentage/100;
+// }
+
 console.log(calculateTip(150, 10));
